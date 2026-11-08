@@ -16,5 +16,5 @@ export const site = {
     { name: 'LinkedIn', url: 'https://linkedin.com/in/segveenstra' },
   ],
   // Gratis (publieke) toegangssleutel van https://web3forms.com, aangemaakt voor contact@segit.nl.
-  web3formsKey: 'VERVANG_MIJ_MET_WEB3FORMS_SLEUTEL',
+  web3formsKey: 'ef4f8d6e-5c7b-46ae-a8cf-96ac79ca8c0c',
 };
