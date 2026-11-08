@@ -7,6 +7,7 @@ image: ../../assets/apps/minesweeper-hex.webp
 imageAlt: Minesweeper Hex
 imagePosition: center 35%
 appStoreUrl: https://apps.apple.com/nl/app/minesweeper-hex/id6737420937
+playStoreUrl: https://play.google.com/store/apps/details?id=nl.segit.minesweeper_hex
 ---
 
 Wie heeft er nou geen mijnenveger gespeeld op de computer?
