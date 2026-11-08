@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const legal = await getCollection('legal');
+  return legal.map((entry) => ({
+    params: { slug: entry.data.app, legal: entry.id },
+    props: { entry },
+  }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title}>
+  <section>
+    <div class="narrow">
+      <p class="crumbs"><a href={`/apps/${entry.data.app}`}>← Terug naar de app</a></p>
+      <h1>{entry.data.kind}</h1>
+      <div class="prose"><Content /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .crumbs { margin: 0 0 1rem; font-weight: 600; }
+</style>

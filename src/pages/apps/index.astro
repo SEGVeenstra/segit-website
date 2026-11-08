@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import AppCard from '../../components/AppCard.astro';
+const apps = (await getCollection('apps')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Apps" description="Alle apps van SEGIT: Speurtocht Plus, Minesweeper Hex, Scrap Bandit en Evenstar.">
+  <section>
+    <div class="container">
+      <span class="eyebrow">Apps</span>
+      <h1>Mijn apps</h1>
+      <div class="grid">
+        {apps.map((app) => <AppCard app={app} />)}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .grid { display: grid; gap: 1.6rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 2rem; }
+</style>

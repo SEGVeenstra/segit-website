@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { site } from '../config';
+const tel = site.phone.replace(/\s/g, '');
+---
+<footer class="site-footer">
+  <div class="container grid">
+    <div>
+      <div class="brand"><Image src={logo} alt="" width={32} height={32} /><span>SEGIT</span></div>
+      <p class="muted">Eigen apps, gebouwd met zorg in Groningen.</p>
+    </div>
+    <address>
+      <strong>Contact</strong>
+      <span>{site.address.street}</span>
+      <span>{site.address.city}</span>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={`tel:${tel}`}>{site.phone}</a> <span class="muted small">({site.phoneNote})</span>
+    </address>
+    <div>
+      <strong>Bedrijfsgegevens</strong>
+      <span>KvK: {site.kvk}</span>
+      <span>BTW: {site.btw}</span>
+    </div>
+    <div>
+      <strong>Volg mij</strong>
+      <ul>
+        {site.social.map((s) => (
+          <li><a href={s.url} rel="noopener me" target="_blank">{s.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="container copy muted small">© {new Date().getFullYear()} SEGIT</div>
+</footer>
+<style>
+  .site-footer { background: var(--navy); color: #cfe0f2; padding-block: 3.5rem 2rem; margin-top: 2rem; }
+  .site-footer a { color: #8fd3ff; }
+  .grid { display: grid; gap: 2rem; grid-template-columns: 1.3fr 1fr 1fr 0.8fr; }
+  @media (max-width: 820px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+  .brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; font-weight: 800; letter-spacing: 0.04em; font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .brand img { width: 32px; height: 32px; object-fit: contain; }
+  strong { display: block; color: #fff; margin-bottom: 0.4rem; }
+  address { font-style: normal; display: grid; gap: 0.1rem; align-content: start; }
+  address span, div > span { display: block; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.1rem; }
+  .muted { color: #8aa3bd; }
+  .small { font-size: 0.9rem; }
+  .copy { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid rgb(255 255 255 / 0.12); }
+</style>

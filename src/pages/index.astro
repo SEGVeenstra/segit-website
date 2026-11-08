@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import AppCard from '../components/AppCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import logo from '../assets/logo.png';
+
+const apps = (await getCollection('apps')).sort((a, b) => a.data.order - b.data.order);
+const clients = ['RDW', 'Philips', 'Albert Heijn', 'Jumbo', 'Staples', 'FD'];
+---
+<Base>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">App-ontwikkelaar · Bedum, Groningen</span>
+        <h1>Welkom bij <span class="grad">SEGIT</span></h1>
+        <p class="lead">
+          Ik ben app-ontwikkelaar, gevestigd in Bedum, Groningen. Ik werk als fulltime Flutter-ontwikkelaar bij{' '}
+          <a href="https://www.swipe4work.nl/" target="_blank" rel="noopener">Swipe4Work</a>, maar onder de naam SEGIT publiceer ik mijn eigen apps.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="/apps">Bekijk mijn apps</a>
+          <a class="btn btn-ghost" href="#contact">Neem contact op</a>
+        </div>
+      </div>
+      <div class="art" aria-hidden="true">
+        <div class="glow"></div>
+        <Image src={logo} alt="" width={420} height={420} loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="apps">
+    <div class="container">
+      <span class="eyebrow">Apps</span>
+      <h2>Mijn eigen apps</h2>
+      <div class="grid">
+        {apps.map((app) => <AppCard app={app} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="over-mij">
+    <div class="container two">
+      <div>
+        <span class="eyebrow">Over mij</span>
+        <h2>Software bouwen is mijn werk én mijn hobby</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Ik werk al jaren in de software-industrie. Het grootste deel van die tijd werkte ik voor agencies, waardoor ik aan veel
+          verschillende, uiteenlopende projecten heb kunnen werken. Enkele bekende namen waarvoor ik aan apps heb gewerkt:
+        </p>
+        <ul class="chips">
+          {clients.map((c) => <li>{c}</li>)}
+        </ul>
+        <p>
+          Het bouwen van apps is niet alleen mijn werk, maar ook mijn hobby. Onder de naam SEGIT publiceer ik appjes die ik in mijn eigen tijd heb gemaakt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container two">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2>Neem contact met mij op</h2>
+        <p class="lead small">Heb je vragen of wil je meer informatie? Neem gerust contact met mij op via het formulier.</p>
+      </div>
+      <div class="panel"><ContactForm /></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; overflow: hidden; padding-block: clamp(3rem, 8vw, 6rem); background:
+    radial-gradient(900px 500px at 85% -10%, rgb(0 160 255 / 0.22), transparent 60%),
+    radial-gradient(700px 400px at 0% 100%, rgb(108 92 231 / 0.14), transparent 60%); }
+  .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; align-items: center; }
+  @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } .art { order: -1; max-width: 220px; } }
+  .grad { background: linear-gradient(120deg, var(--blue-500), var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: 1.2rem; color: var(--ink-soft); max-width: 55ch; }
+  .lead.small { font-size: 1.05rem; }
+  .cta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.6rem; }
+  .art { position: relative; display: grid; place-items: center; }
+  .art img { position: relative; width: min(100%, 360px); height: auto; filter: drop-shadow(0 24px 40px rgb(0 112 200 / 0.35)); animation: float 7s ease-in-out infinite; }
+  .glow { position: absolute; inset: 10%; border-radius: 50%; background: radial-gradient(circle, rgb(0 160 255 / 0.35), transparent 65%); filter: blur(30px); }
+  @keyframes float { 50% { transform: translateY(-10px) rotate(1.5deg); } }
+  @media (prefers-reduced-motion: reduce) { .art img { animation: none; } }
+
+  .grid { display: grid; gap: 1.6rem; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin-top: 1.8rem; }
+
+  .about { background: var(--surface); border-block: 1px solid var(--line); }
+  .two { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3rem; align-items: start; }
+  @media (max-width: 800px) { .two { grid-template-columns: 1fr; gap: 1.5rem; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0 !important; margin: 0 0 1.2em; }
+  .chips li { margin: 0; padding: 0.35rem 0.9rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); font-weight: 600; font-size: 0.95rem; }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.3rem, 3vw, 2rem); box-shadow: var(--shadow); }
+</style>

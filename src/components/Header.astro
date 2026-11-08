@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+const path = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'Home', active: path === '/' },
+  { href: '/apps', label: 'Apps', active: path.startsWith('/apps') },
+  { href: '/#contact', label: 'Contact', active: false },
+];
+---
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href="/" aria-label="SEGIT – naar de homepage">
+      <Image src={logo} alt="" width={36} height={36} />
+      <span>SEGIT</span>
+    </a>
+    <nav aria-label="Hoofdmenu">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href} aria-current={l.active ? 'page' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+  .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--ink); font-weight: 800; letter-spacing: 0.04em; font-size: 1.15rem; }
+  .brand img { width: 36px; height: 36px; object-fit: contain; }
+  ul { display: flex; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+  nav a { display: block; padding: 0.45rem 0.9rem; border-radius: 999px; text-decoration: none; color: var(--ink-soft); font-weight: 600; font-size: 0.98rem; }
+  nav a:hover { color: var(--ink); background: var(--surface-2); }
+  nav a[aria-current='page'] { color: var(--blue-700); background: var(--surface-2); }
+  @media (prefers-color-scheme: dark) { nav a[aria-current='page'] { color: var(--blue-400); } }
+</style>

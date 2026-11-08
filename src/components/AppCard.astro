@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+interface Props { app: CollectionEntry<'apps'>; }
+const { app } = Astro.props;
+const { data } = app;
+---
+<a class="card" href={`/apps/${app.id}`}>
+  <div class="thumb">
+    <Image src={data.image} alt={data.imageAlt} width={800} height={533} style={`object-position:${data.imagePosition}`} />
+  </div>
+  <div class="body">
+    <h3>{data.shortTitle ?? data.title}</h3>
+    <p>{data.summary}</p>
+    <span class="more">Lees verder <span aria-hidden="true">→</span></span>
+  </div>
+</a>
+<style>
+  .card {
+    display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    background: var(--surface); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgb(10 37 64 / .08), 0 16px 36px rgb(0 112 200 / .22); }
+  .thumb { aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface-2); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .card:hover img { transform: scale(1.04); }
+  .body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  h3 { margin-bottom: 0.4rem; }
+  p { color: var(--ink-soft); font-size: 0.98rem; flex: 1; }
+  .more { color: var(--link); font-weight: 650; }
+  @media (prefers-reduced-motion: reduce) { .card, .thumb img { transition: none; } .card:hover { transform: none; } .card:hover img { transform: none; } }
+</style>
