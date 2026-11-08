@@ -2,7 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
-import badge from '../../../assets/app-store-badge.svg';
+import appleBadge from '../../../assets/app-store-badge.svg';
+import playBadge from '../../../assets/google-play-badge.png';
 
 export async function getStaticPaths() {
   const apps = await getCollection('apps');
@@ -23,10 +24,24 @@ const d = app.data;
         <p class="crumbs"><a href="/apps">← Alle apps</a></p>
         <h1>{d.heading}</h1>
         <div class="prose"><Content /></div>
-        {d.appStoreUrl && (
-          <p class="store">
-            <a href={d.appStoreUrl} target="_blank" rel="noopener" aria-label={`Download ${d.title} in de App Store`}>
-              <img src={badge.src} alt="Download in de App Store" height="48" />
+        {(d.appStoreUrl || d.playStoreUrl) && (
+          <p class="stores">
+            {d.appStoreUrl && (
+              <a href={d.appStoreUrl} target="_blank" rel="noopener" aria-label={`Download ${d.title} in de App Store`}>
+                <img class="apple" src={appleBadge.src} alt="Download in de App Store" />
+              </a>
+            )}
+            {d.playStoreUrl && (
+              <a href={d.playStoreUrl} target="_blank" rel="noopener" aria-label={`Download ${d.title} via Google Play`}>
+                <Image class="play" src={playBadge} alt="Ontdek het op Google Play" height={64} />
+              </a>
+            )}
+          </p>
+        )}
+        {d.websiteUrl && (
+          <p class="site">
+            <a class="btn btn-ghost" href={d.websiteUrl} target="_blank" rel="noopener">
+              Bezoek de website van {d.shortTitle ?? d.title} <span aria-hidden="true">↗</span>
             </a>
           </p>
         )}
@@ -49,7 +64,11 @@ const d = app.data;
   .layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: start; }
   @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .shot { order: -1; } }
   .crumbs { margin: 0 0 1rem; font-weight: 600; }
-  .store img { height: 48px; width: auto; }
+  .stores { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 0.25rem; margin-top: 1.8rem; }
+  .stores a { display: inline-block; line-height: 0; }
+  .stores .apple { height: 48px; width: auto; margin-right: 0.4rem; }
+  .stores :global(.play) { height: 64px; width: auto; }
+  .site { margin-top: 1rem; }
   .shot img { width: 100%; height: auto; max-height: 70vh; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--line); }
   .legal { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .legal h2 { font-size: 1.1rem; }

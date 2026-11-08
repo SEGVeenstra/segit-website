@@ -15,6 +15,8 @@ const apps = defineCollection({
       imageAlt: z.string(),
       imagePosition: z.string().default('center'),
       appStoreUrl: z.string().url().optional(),
+      playStoreUrl: z.string().url().optional(),
+      websiteUrl: z.string().url().optional(),
     }),
 });
 

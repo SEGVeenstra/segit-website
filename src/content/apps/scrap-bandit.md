@@ -7,6 +7,7 @@ image: ../../assets/apps/scrap-bandit.webp
 imageAlt: Scrap Bandit
 imagePosition: center 30%
 appStoreUrl: https://apps.apple.com/nl/app/scrap-bandit/id1446066863
+playStoreUrl: https://play.google.com/store/apps/details?id=nl.segit.scrapbandit
 ---
 
 Met Scrap Bandit oefen je eenvoudig de Bandit Camp-minigame van de survivalgame Rust.

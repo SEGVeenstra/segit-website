@@ -6,6 +6,8 @@ summary: Maak, deel en speel heel eenvoudig je eigen GPS-speurtochten. Leuk voor
 image: ../../assets/apps/speurtocht-plus.webp
 imageAlt: Speurtocht Plus
 appStoreUrl: https://apps.apple.com/nl/app/scavenger-hunt-plus/id6471435236
+playStoreUrl: https://play.google.com/store/apps/details?id=nl.segit.scavenger_hunt
+websiteUrl: https://scavengerhuntplus.com
 ---
 
 Met de Speurtocht Plus app kun je heel eenvoudig je eigen GPS-speurtocht in elkaar zetten, delen en spelen.
